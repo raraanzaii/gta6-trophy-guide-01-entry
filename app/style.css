@@ -1,7 +1,118 @@
-body { font-family: Arial, sans-serif; margin: 24px; color: #222; }
-header { display: flex; justify-content: space-between; align-items: baseline; }
-.controls { display: flex; gap: 16px; margin: 12px 0; align-items: center; }
-.import input { font-size: 12px; }
-table { border-collapse: collapse; width: 100%; }
-th, td { border-bottom: 1px solid #ddd; padding: 6px 8px; text-align: left; vertical-align: top; white-space: pre-line; }
-th { background: #f2f2f2; }
+/* Leonida Trophy Atlas — neon dusk theme: magenta and teal over deep night, original artwork only. */
+:root {
+  --night: #12081f;
+  --panel: #1d1033;
+  --panel-2: #251544;
+  --ink: #fdf6ff;
+  --muted: #cdbce8;
+  --magenta: #ff3d8a;
+  --teal: #2ee6c8;
+  --gold: #ffd34d;
+  --silver: #dfe6f2;
+  --bronze: #f0a35e;
+  --platinum: #a8f0ff;
+  --danger: #ff5d5d;
+  --line: #4a2f7a;
+}
+* { box-sizing: border-box; }
+html { background: #14092a; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(160deg, #0d0618 0%, #1a0b2e 55%, #241038 100%);
+  color: var(--ink);
+  font-family: "Avenir Next", "Segoe UI", Verdana, sans-serif;
+  font-size: 17px;
+  line-height: 1.45;
+}
+.masthead {
+  display: flex; gap: 28px; align-items: flex-start; justify-content: space-between;
+  padding: 18px 34px 12px;
+  background: linear-gradient(92deg, rgba(255,61,138,.20), rgba(46,230,200,.12) 60%, transparent);
+  border-bottom: 3px solid var(--magenta);
+}
+.kicker { margin: 0 0 4px; color: var(--teal); font-weight: 700; letter-spacing: .18em; font-size: 13px; }
+h1 { margin: 0; font-size: 38px; line-height: 1.02; letter-spacing: .01em; text-shadow: 0 2px 0 rgba(255,61,138,.45); }
+.sub { margin: 6px 0 0; max-width: 640px; color: var(--muted); font-size: 14.5px; }
+.progress-box { min-width: 330px; background: var(--panel); border: 2px solid var(--teal); border-radius: 14px; padding: 14px 18px; }
+.progress-big { margin: 0; font-size: 26px; font-weight: 800; }
+#progress-pct { color: var(--teal); font-size: 19px; }
+.progress-bar { height: 14px; background: #0d0618; border-radius: 8px; margin: 8px 0; overflow: hidden; border: 1px solid var(--line); }
+#progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--magenta), var(--teal)); transition: width .3s; }
+.grade-counts { margin: 2px 0; font-size: 15px; color: var(--gold); font-weight: 700; }
+.online-note { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+
+.controls {
+  display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center;
+  padding: 10px 34px; background: rgba(13,6,24,.92); border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; z-index: 5;
+}
+.view-btn, .chip, #export-btn, .file-btn {
+  background: var(--panel-2); color: var(--ink); border: 2px solid var(--line);
+  border-radius: 999px; padding: 7px 16px; font-size: 15px; font-weight: 700; cursor: pointer;
+}
+.view-btn.active, .chip.active { background: var(--magenta); border-color: var(--magenta); color: #fff; }
+.chip-miss { border-color: var(--danger); color: #ffb3b3; }
+.chip-miss.active { background: var(--danger); border-color: var(--danger); color: #fff; }
+.ctl { font-size: 14px; color: var(--muted); font-weight: 700; display: flex; align-items: center; gap: 7px; }
+.ctl.grow { flex: 1 1 180px; }
+.ctl select, .ctl input[type="search"] {
+  background: var(--panel); color: var(--ink); border: 2px solid var(--line);
+  border-radius: 9px; padding: 7px 10px; font-size: 15px;
+}
+.ctl input[type="search"] { width: 100%; }
+.ctl.check { color: var(--ink); }
+.ctl.check input { width: 19px; height: 19px; accent-color: var(--magenta); }
+.file-btn input { display: none; }
+#export-btn { border-color: var(--teal); color: var(--teal); background: var(--panel-2); }
+
+#main-layout { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 22px; padding: 12px 34px 8px; align-items: start; }
+#main-layout[hidden], #roadmap-pane[hidden], #detail-card[hidden], #detail-empty[hidden] { display: none; }
+.list-summary { color: var(--muted); font-size: 15px; margin: 0 0 10px; font-weight: 700; }
+.trophy-row {
+  display: flex; gap: 12px; align-items: flex-start; width: 100%; text-align: left;
+  background: var(--panel); border: 2px solid var(--line); border-radius: 13px;
+  padding: 11px 14px; margin: 0 0 9px; cursor: pointer; color: var(--ink); font: inherit;
+}
+.trophy-row:hover, .trophy-row.selected { border-color: var(--teal); }
+.trophy-row.earned { background: #173527; border-color: #2e7d5b; }
+.trophy-row input[type="checkbox"] { width: 22px; height: 22px; margin-top: 3px; accent-color: var(--teal); flex: none; }
+.row-main { flex: 1; min-width: 0; }
+.row-name { font-size: 19px; font-weight: 800; display: block; }
+.row-desc { color: var(--muted); font-size: 14.5px; display: block; }
+.row-meta { display: block; margin-top: 5px; }
+.badge { display: inline-block; border-radius: 999px; padding: 1px 10px; font-size: 12.5px; font-weight: 800; letter-spacing: .04em; margin-right: 6px; }
+.badge-platinum { background: var(--platinum); color: #08303d; }
+.badge-gold { background: var(--gold); color: #4a3200; }
+.badge-silver { background: var(--silver); color: #2c3542; }
+.badge-bronze { background: var(--bronze); color: #4a2400; }
+.badge-kind { background: #3a2364; color: #cdbce8; }
+.badge-miss { background: var(--danger); color: #fff; }
+.badge-count { background: var(--teal); color: #04352b; }
+.hidden-name { color: var(--magenta); font-style: italic; }
+
+#detail-pane { position: sticky; top: 86px; scroll-margin-top: 118px; }
+.detail-empty, #detail-card { background: var(--panel); border: 2px solid var(--magenta); border-radius: 15px; padding: 14px 18px; }
+.detail-empty h2, #detail-card h2 { margin: 0 0 4px; font-size: 25px; line-height: 1.1; }
+.detail-desc { color: var(--gold); font-size: 16px; font-weight: 700; margin: 3px 0 6px; }
+.detail-guide { font-size: 15px; margin: 8px 0; }
+#detail-card h3 { color: var(--teal); margin: 10px 0 4px; font-size: 15px; letter-spacing: .08em; }
+#detail-card ol, #detail-card ul { margin: 3px 0 6px; padding-left: 22px; }
+#detail-card li { margin-bottom: 3px; font-size: 14.5px; }
+.miss-note { background: rgba(255,93,93,.16); border: 2px solid var(--danger); border-radius: 10px; padding: 9px 12px; font-size: 15px; }
+.sources-list a { color: var(--teal); font-weight: 700; }
+.counter-box { display: flex; align-items: center; gap: 10px; background: var(--panel-2); border-radius: 10px; padding: 9px 12px; }
+.counter-box button { background: var(--magenta); color: #fff; border: 0; border-radius: 8px; font-size: 18px; font-weight: 800; width: 34px; height: 34px; cursor: pointer; }
+.counter-now { font-size: 20px; font-weight: 800; }
+
+#roadmap-pane { padding: 10px 34px 20px; }
+.roadmap-title { font-size: 34px; margin: 8px 0 2px; }
+.roadmap-estimate { color: var(--teal); font-weight: 700; margin: 0 0 14px; }
+.stage-card { background: var(--panel); border: 2px solid var(--line); border-left: 10px solid var(--magenta); border-radius: 13px; padding: 14px 18px; margin-bottom: 14px; }
+.stage-card h3 { margin: 0 0 4px; font-size: 23px; }
+.stage-hours { color: var(--gold); font-weight: 800; font-size: 14px; letter-spacing: .06em; }
+.stage-card p { margin: 6px 0 10px; color: #cdbce8; font-size: 15.5px; }
+.stage-trophies { display: flex; flex-wrap: wrap; gap: 6px; }
+.stage-chip { background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 2px 11px; font-size: 13.5px; font-weight: 700; }
+.stage-chip.done { background: #173527; border-color: #2e7d5b; color: #9fe8c6; }
+.colophon { padding: 14px 34px 26px; color: #cdbce8; font-size: 13.5px; }

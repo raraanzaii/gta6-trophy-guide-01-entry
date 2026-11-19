@@ -3,23 +3,79 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GTA VI trophy checklist</title>
+<title>Leonida Trophy Atlas — GTA VI guide &amp; tracker</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <h1>GTA VI trophy checklist</h1>
-  <p id="progress">0 of 55 earned</p>
+<header class="masthead" id="masthead">
+  <div class="masthead-text">
+    <p class="kicker">LEONIDA &middot; PLAYSTATION 5 &middot; OFFLINE GUIDE</p>
+    <h1>Leonida Trophy Atlas</h1>
+    <p class="sub">All 55 official GTA VI trophies &mdash; every guide written for this atlas and cited, a five-stage platinum roadmap, missable flags, and a tracker that saves in your browser.</p>
+  </div>
+  <div class="progress-box" id="progress-box">
+    <p class="progress-big"><span id="progress-count">0/55</span> <span id="progress-pct">0% to platinum</span></p>
+    <div class="progress-bar"><div id="progress-fill"></div></div>
+    <p class="grade-counts" id="grade-counts">Platinum 0/1 &middot; Gold 0/2 &middot; Silver 0/6 &middot; Bronze 0/46</p>
+    <p class="online-note">Online trophies: 0 of 55 &mdash; the whole list is offline single-player.</p>
+  </div>
 </header>
-<div class="controls">
-  <label>Grade <select id="grade"><option value="all">All</option><option value="platinum">Platinum</option><option value="gold">Gold</option><option value="silver">Silver</option><option value="bronze">Bronze</option></select></label>
-  <button id="export" type="button">Export progress</button>
-  <label class="import">Import progress <input id="import" type="file" accept="application/json"></label>
-</div>
-<table>
-  <thead><tr><th>Earned</th><th>Trophy</th><th>Grade</th><th>How to get it</th></tr></thead>
-  <tbody id="rows"></tbody>
-</table>
-<script type="module" src="app.js"></script>
+
+<nav class="controls" id="controls">
+  <div class="view-toggle" role="group" aria-label="View">
+    <button type="button" id="view-checklist" class="view-btn active">Checklist</button>
+    <button type="button" id="view-roadmap" class="view-btn">Roadmap to platinum</button>
+  </div>
+  <div class="chips" id="kind-chips" role="group" aria-label="Filter by kind">
+    <button type="button" class="chip active" data-kind="all">All</button>
+    <button type="button" class="chip" data-kind="story">Story</button>
+    <button type="button" class="chip chip-miss" data-kind="missable">Missable</button>
+    <button type="button" class="chip" data-kind="collectibles">Collectibles</button>
+    <button type="button" class="chip" data-kind="activities">Activities</button>
+    <button type="button" class="chip" data-kind="online">Online</button>
+    <button type="button" class="chip" data-kind="misc">Misc</button>
+  </div>
+  <label class="ctl">Grade
+    <select id="grade-filter">
+      <option value="all">All grades</option>
+      <option value="platinum">Platinum</option>
+      <option value="gold">Gold</option>
+      <option value="silver">Silver</option>
+      <option value="bronze">Bronze</option>
+    </select>
+  </label>
+  <label class="ctl grow">Search
+    <input id="search-box" type="search" placeholder="Search trophy name&hellip;">
+  </label>
+  <label class="ctl check"><input id="spoiler-toggle" type="checkbox"> Spoiler shield: hide unearned story trophies</label>
+  <button type="button" id="export-btn">Export progress (JSON)</button>
+  <label class="ctl file-btn">Import progress <input id="import-file" type="file" accept="application/json"></label>
+</nav>
+
+<main id="main-layout">
+  <section id="list-pane">
+    <p id="list-summary" class="list-summary"></p>
+    <div id="trophy-list"></div>
+  </section>
+  <aside id="detail-pane">
+    <div id="detail-empty" class="detail-empty">
+      <h2>Pick a trophy</h2>
+      <p>Its official name, description and grade appear here with the full cited guide, the steps, any missable warning and a progress counter for counted trophies.</p>
+    </div>
+    <article id="detail-card" hidden></article>
+  </aside>
+</main>
+
+<section id="roadmap-pane" hidden>
+  <h2 class="roadmap-title">Roadmap to the Platinum</h2>
+  <p class="roadmap-estimate" id="roadmap-estimate"></p>
+  <div id="roadmap-stages"></div>
+</section>
+
+<footer class="colophon">
+  <p>Guides are original to this atlas and cite their sources beside each trophy. Official trophy names, descriptions and grades are as PlayStation publishes them. Original Leonida look &mdash; no Rockstar artwork. Works fully offline; progress lives only in this browser (localStorage) unless you export it.</p>
+</footer>
+
+<script type="module" src="js/main.js"></script>
 </body>
 </html>
